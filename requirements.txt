@@ -1,0 +1,7 @@
+streamlit>=1.50.0
+pandas>=2.0
+plotly>=5.20
+openai>=1.60
+python-dotenv>=1.0
+tabulate>=0.9
+pytest>=8.0

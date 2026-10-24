@@ -1,0 +1,282 @@
+[
+  {
+    "id": 1,
+    "question": "How many orders are in the dataset?",
+    "category": "aggregation",
+    "ordered": false,
+    "gold_sql": "SELECT COUNT(*) FROM \"data\"",
+    "answerable": true
+  },
+  {
+    "id": 2,
+    "question": "What is the total sales?",
+    "category": "aggregation",
+    "ordered": false,
+    "gold_sql": "SELECT ROUND(SUM(\"sales\"), 2) FROM \"data\"",
+    "answerable": true
+  },
+  {
+    "id": 3,
+    "question": "What is the average sales per order?",
+    "category": "aggregation",
+    "ordered": false,
+    "gold_sql": "SELECT ROUND(AVG(\"sales\"), 2) FROM \"data\"",
+    "answerable": true
+  },
+  {
+    "id": 4,
+    "question": "What is the largest single order by sales amount?",
+    "category": "aggregation",
+    "ordered": false,
+    "gold_sql": "SELECT MAX(\"sales\") FROM \"data\"",
+    "answerable": true
+  },
+  {
+    "id": 5,
+    "question": "What is the smallest quantity ordered?",
+    "category": "aggregation",
+    "ordered": false,
+    "gold_sql": "SELECT MIN(\"quantity\") FROM \"data\"",
+    "answerable": true
+  },
+  {
+    "id": 6,
+    "question": "How many distinct products are sold?",
+    "category": "aggregation",
+    "ordered": false,
+    "gold_sql": "SELECT COUNT(DISTINCT \"product\") FROM \"data\"",
+    "answerable": true
+  },
+  {
+    "id": 7,
+    "question": "Total sales by region",
+    "category": "group_by",
+    "ordered": false,
+    "gold_sql": "SELECT \"region\", ROUND(SUM(\"sales\"), 2) FROM \"data\" GROUP BY \"region\"",
+    "answerable": true
+  },
+  {
+    "id": 8,
+    "question": "Average discount by category",
+    "category": "group_by",
+    "ordered": false,
+    "gold_sql": "SELECT \"category\", ROUND(AVG(\"discount\"), 4) FROM \"data\" GROUP BY \"category\"",
+    "answerable": true
+  },
+  {
+    "id": 9,
+    "question": "Number of orders per customer segment",
+    "category": "group_by",
+    "ordered": false,
+    "gold_sql": "SELECT \"customer_segment\", COUNT(*) FROM \"data\" GROUP BY \"customer_segment\"",
+    "answerable": true
+  },
+  {
+    "id": 10,
+    "question": "Average unit price by category",
+    "category": "group_by",
+    "ordered": false,
+    "gold_sql": "SELECT \"category\", ROUND(AVG(\"unit_price\"), 2) FROM \"data\" GROUP BY \"category\"",
+    "answerable": true
+  },
+  {
+    "id": 11,
+    "question": "Average quantity per order in each region",
+    "category": "group_by",
+    "ordered": false,
+    "gold_sql": "SELECT \"region\", ROUND(AVG(\"quantity\"), 2) FROM \"data\" GROUP BY \"region\"",
+    "answerable": true
+  },
+  {
+    "id": 12,
+    "question": "Number of orders by category and region",
+    "category": "group_by",
+    "ordered": false,
+    "gold_sql": "SELECT \"category\", \"region\", COUNT(*) FROM \"data\" GROUP BY \"category\", \"region\"",
+    "answerable": true
+  },
+  {
+    "id": 13,
+    "question": "Total quantity sold per product",
+    "category": "group_by",
+    "ordered": false,
+    "gold_sql": "SELECT \"product\", SUM(\"quantity\") FROM \"data\" GROUP BY \"product\"",
+    "answerable": true
+  },
+  {
+    "id": 14,
+    "question": "How many orders were placed in each year?",
+    "category": "date",
+    "ordered": false,
+    "gold_sql": "SELECT strftime('%Y', \"order_date\"), COUNT(*) FROM \"data\" GROUP BY 1",
+    "answerable": true
+  },
+  {
+    "id": 15,
+    "question": "Which region has the highest total sales?",
+    "category": "top_n",
+    "ordered": true,
+    "gold_sql": "SELECT \"region\" FROM \"data\" GROUP BY \"region\" ORDER BY SUM(\"sales\") DESC LIMIT 1",
+    "answerable": true
+  },
+  {
+    "id": 16,
+    "question": "Top 5 products by total sales",
+    "category": "top_n",
+    "ordered": true,
+    "gold_sql": "SELECT \"product\", ROUND(SUM(\"sales\"), 2) FROM \"data\" GROUP BY \"product\" ORDER BY SUM(\"sales\") DESC LIMIT 5",
+    "answerable": true
+  },
+  {
+    "id": 17,
+    "question": "Which product has the lowest total sales?",
+    "category": "top_n",
+    "ordered": true,
+    "gold_sql": "SELECT \"product\" FROM \"data\" GROUP BY \"product\" ORDER BY SUM(\"sales\") ASC LIMIT 1",
+    "answerable": true
+  },
+  {
+    "id": 18,
+    "question": "Top 3 customer segments by total sales",
+    "category": "top_n",
+    "ordered": true,
+    "gold_sql": "SELECT \"customer_segment\", ROUND(SUM(\"sales\"), 2) FROM \"data\" GROUP BY \"customer_segment\" ORDER BY SUM(\"sales\") DESC LIMIT 3",
+    "answerable": true
+  },
+  {
+    "id": 19,
+    "question": "List the 5 largest orders by sales with their order ID",
+    "category": "top_n",
+    "ordered": true,
+    "gold_sql": "SELECT \"order_id\", \"sales\" FROM \"data\" ORDER BY \"sales\" DESC LIMIT 5",
+    "answerable": true
+  },
+  {
+    "id": 20,
+    "question": "Which category has the highest average discount?",
+    "category": "top_n",
+    "ordered": true,
+    "gold_sql": "SELECT \"category\" FROM \"data\" GROUP BY \"category\" ORDER BY AVG(\"discount\") DESC LIMIT 1",
+    "answerable": true
+  },
+  {
+    "id": 21,
+    "question": "Total revenue per category, highest first",
+    "category": "top_n",
+    "ordered": true,
+    "gold_sql": "SELECT \"category\", ROUND(SUM(\"sales\"), 2) FROM \"data\" GROUP BY \"category\" ORDER BY SUM(\"sales\") DESC",
+    "answerable": true
+  },
+  {
+    "id": 22,
+    "question": "How many orders are in the Technology category?",
+    "category": "filter",
+    "ordered": false,
+    "gold_sql": "SELECT COUNT(*) FROM \"data\" WHERE \"category\" = 'Technology'",
+    "answerable": true
+  },
+  {
+    "id": 23,
+    "question": "How many orders have a discount greater than 10 percent?",
+    "category": "filter",
+    "ordered": false,
+    "gold_sql": "SELECT COUNT(*) FROM \"data\" WHERE \"discount\" > 0.10",
+    "answerable": true
+  },
+  {
+    "id": 24,
+    "question": "Total sales from Corporate customers in the West region",
+    "category": "filter",
+    "ordered": false,
+    "gold_sql": "SELECT ROUND(SUM(\"sales\"), 2) FROM \"data\" WHERE \"customer_segment\" = 'Corporate' AND \"region\" = 'West'",
+    "answerable": true
+  },
+  {
+    "id": 25,
+    "question": "Total sales for orders with a quantity of at least 8",
+    "category": "filter",
+    "ordered": false,
+    "gold_sql": "SELECT ROUND(SUM(\"sales\"), 2) FROM \"data\" WHERE \"quantity\" >= 8",
+    "answerable": true
+  },
+  {
+    "id": 26,
+    "question": "What is the average sales for the Furniture category?",
+    "category": "filter",
+    "ordered": false,
+    "gold_sql": "SELECT ROUND(AVG(\"sales\"), 2) FROM \"data\" WHERE \"category\" = 'Furniture'",
+    "answerable": true
+  },
+  {
+    "id": 27,
+    "question": "What is the total sales in 2024?",
+    "category": "date",
+    "ordered": false,
+    "gold_sql": "SELECT ROUND(SUM(\"sales\"), 2) FROM \"data\" WHERE strftime('%Y', \"order_date\") = '2024'",
+    "answerable": true
+  },
+  {
+    "id": 28,
+    "question": "What is the total sales in 2025?",
+    "category": "date",
+    "ordered": false,
+    "gold_sql": "SELECT ROUND(SUM(\"sales\"), 2) FROM \"data\" WHERE strftime('%Y', \"order_date\") = '2025'",
+    "answerable": true
+  },
+  {
+    "id": 29,
+    "question": "Monthly total sales in 2024",
+    "category": "date",
+    "ordered": false,
+    "gold_sql": "SELECT strftime('%Y-%m', \"order_date\"), ROUND(SUM(\"sales\"), 2) FROM \"data\" WHERE strftime('%Y', \"order_date\") = '2024' GROUP BY 1",
+    "answerable": true
+  },
+  {
+    "id": 30,
+    "question": "Total sales in the first quarter of 2025",
+    "category": "date",
+    "ordered": false,
+    "gold_sql": "SELECT ROUND(SUM(\"sales\"), 2) FROM \"data\" WHERE \"order_date\" >= '2025-01-01' AND \"order_date\" < '2025-04-01'",
+    "answerable": true
+  },
+  {
+    "id": 31,
+    "question": "How many orders were placed in December 2024?",
+    "category": "date",
+    "ordered": false,
+    "gold_sql": "SELECT COUNT(*) FROM \"data\" WHERE strftime('%Y-%m', \"order_date\") = '2024-12'",
+    "answerable": true
+  },
+  {
+    "id": 32,
+    "question": "What percentage of orders have a discount?",
+    "category": "ratio",
+    "ordered": false,
+    "gold_sql": "SELECT ROUND(100.0 * SUM(\"discount\" > 0) / COUNT(*), 2) FROM \"data\"",
+    "answerable": true
+  },
+  {
+    "id": 33,
+    "question": "What is the total discount amount given in currency terms (quantity times unit price times discount)?",
+    "category": "ratio",
+    "ordered": false,
+    "gold_sql": "SELECT ROUND(SUM(\"quantity\" * \"unit_price\" * \"discount\"), 2) FROM \"data\"",
+    "answerable": true
+  },
+  {
+    "id": 34,
+    "question": "What is the profit margin of each category?",
+    "category": "unanswerable",
+    "ordered": false,
+    "gold_sql": null,
+    "answerable": false
+  },
+  {
+    "id": 35,
+    "question": "What is the average age of our customers?",
+    "category": "unanswerable",
+    "ordered": false,
+    "gold_sql": null,
+    "answerable": false
+  }
+]
